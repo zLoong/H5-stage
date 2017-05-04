@@ -1,4 +1,4 @@
-var webpack = require('webpack');
+﻿var webpack = require('webpack');
 module.exports = {
     //开启sourcemap源代码调试定位功能
     //devtool: 'source-map',
@@ -22,7 +22,7 @@ module.exports = {
         loaders: [
             { test: /\.css$/, loader: 'style-loader!css-loader!autoprefixer-loader?safe=true' },
             { test: /\.scss$/, loader: 'style-loader!css-loader!autoprefixer-loader?safe=true!sass-loader?sourceMap' },
-            { test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192' },
+            { test: /\.(png|jpg)$/, loader: 'url-loader?limit=4096&name=[path][name].[ext]' },
             { test: /\.js$/, loader: "babel-loader" }
         ]
     },
