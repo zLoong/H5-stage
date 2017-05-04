@@ -1,0 +1,392 @@
+// 夜间模式专用，一般用在组件内的私有颜色，fun只可选择darkenColor，darkenColor2，lightColor
+// @include colorNight('border-color',#4c9afa,'darkenColor');
+// 中间的$color不需要加引号
+@mixin colorNight($ele, $color, $fun){
+  #{$ele}:$color;
+  @if $G-night{
+    .G-night &{
+      @if $fun == 'darkenColor'{
+        #{$ele}:darkenColor($color);
+      }
+      @if $fun == 'darkenColor2'{
+        #{$ele}:darkenColor2($color);
+      }
+      @if $fun == 'lightColor'{
+        #{$ele}:lightColor($color);
+      }
+    }
+  }
+}
+
+//超出隐藏省略号
+@mixin textOverflow($clamp: 1) {
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+  @if $clamp == 1 {
+    white-space: nowrap;
+  }@else {
+    display: -webkit-box;
+
+    -webkit-line-clamp: $clamp;
+    -webkit-box-orient: vertical;
+  }
+}
+
+//占位 是否可控高度：false（无法控制min-height,但没有多余结构） true(可控制min-height，但要增加结构)
+@mixin proporBox($arg: 1, $type:false, $ele:':before') {
+  position: relative;
+  @if $type == true {
+    &#{$ele} {
+      display: block;
+
+      padding-top: percentage($arg);
+
+      width: 100%;
+
+      content: '';
+    }
+  }@else {
+    padding-top: percentage($arg);
+  }
+}
+
+//svg line
+@mixin svgLine($color: $D5,$width:100%, $height:100%) {
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><rect width="#{$width}" height="#{$height}" fill="#{$color}"/></svg>');
+}
+
+
+@mixin borderSvg($direction, $size, $borderColor, $Through: true ) {
+  position: relative;
+
+  &::after {
+    position: absolute;
+
+    content: '';
+
+    pointer-events: none;
+    @if $direction == top {
+      @include svgLine($borderColor, 100%, 50%);
+
+      top: 0;
+
+      height: $size;
+      @if $Through {
+        right: 0;
+        left: 0;
+      }
+      @else {
+        @extend %G-left-32;
+        @extend %G-right-32;
+      }
+    }
+    @else if $direction == right {
+      @include svgLine($borderColor, 50%, 100%);
+
+      top: 0;
+      right: 0;
+
+      width: $size;
+
+      height: 100%;
+    }
+    @else if $direction == bottom {
+      @include svgLine($borderColor, 100%, 50%);
+
+      bottom: 0;
+
+      height: $size;
+      @if $Through {
+        right: 0;
+        left: 0;
+      }
+      @else {
+        @extend %G-left-32;
+        @extend %G-right-32;
+      }
+    }
+    @else if $direction == left {
+      @include svgLine($borderColor, 50%, 100%);
+
+      top: 0;
+      left: 0;
+
+      width: $size;
+
+      height: 100%;
+    }
+  }
+}
+
+// 小三角，方向，大小，颜色
+@mixin triangle($direction, $size, $borderColor ) {
+  width: 0;
+
+  height: 0;
+
+  content: '';
+  @if $direction == top {
+    border-right: $size dashed transparent;
+    border-bottom: $size solid $borderColor;
+    border-left: $size dashed transparent;
+  }
+  @else if $direction == right {
+    border-top: $size dashed transparent;
+    border-bottom: $size dashed transparent;
+    border-left: $size solid $borderColor;
+  }
+  @else if $direction == bottom {
+    border-top: $size solid $borderColor;
+    border-right: $size dashed transparent;
+    border-left: $size dashed transparent;
+  }
+  @else if $direction == left {
+    border-top: $size dashed transparent;
+    border-right: $size solid $borderColor;
+    border-bottom: $size dashed transparent;
+  }
+}
+
+
+/*定义颜色的1px边框, 不定义颜色请使用static_class*/
+// $direction: top/right/bottom/left/all/  and   A-B(eg. top-bottom)
+@mixin border($color: D5, $radius:0, $direction:all, $isFull: true, $ele: 'after') {
+    position: relative;
+    @if $direction == top {
+        &::#{$ele} {
+            @extend %G-bgcolor-#{$color};
+            content: '';
+            position: absolute;
+            height: 1px;
+            top: 0;
+            transform: scaleY(0.5);
+            transform-origin: 0 100%;
+            pointer-events:none;
+            @if $isFull {
+                left: 0;
+                right: 0;
+            }
+            @else {
+                @extend %G-left-32;
+                @extend %G-right-32;
+            }
+        }
+    }
+    @else if $direction == right {
+        &::#{$ele} {
+            @extend %G-bgcolor-#{$color};
+            content: '';
+            position: absolute;
+            width: 1px;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            transform: scaleX(0.5);
+            transform-origin: 0 100%;
+            pointer-events:none;
+        }
+    }
+    @else if $direction == bottom {
+        &::#{$ele} {
+            @extend %G-bgcolor-#{$color};
+            content: '';
+            position: absolute;
+            height: 1px;
+            bottom: 0;
+            transform: scaleY(0.5);
+            transform-origin: 0 100%;
+            pointer-events:none;
+            @if $isFull {
+                left: 0;
+                right: 0;
+            }
+            @else {
+                @extend %G-left-32;
+                @extend %G-right-32;
+            }
+        }
+    }
+    @else if $direction == left {
+        &::#{$ele} {
+            @extend %G-bgcolor-#{$color};
+            content: '';
+            position: absolute;
+            width: 1px;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            transform: scaleX(0.5);
+            transform-origin: 0 100%;
+            pointer-events:none;
+        }
+    }
+    @else if $direction == all {
+        &::#{$ele} {
+            @extend %G-bdcolor-#{$color};
+            display: block;
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            left: 0;
+            top: 0;
+            border-width: 1px;
+            border-style: solid;
+            transform: scale(.5, .5);
+            transform-origin: 0 0;
+            pointer-events: none;
+            box-sizing: border-box;
+            @if $radius != 0 {
+                border-radius: #{$radius};
+            }
+        }
+    }
+    @else {
+        &::#{$ele} {
+            @extend %G-bdcolor-#{$color};
+            display: block;
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            left: 0;
+            top: 0;
+            border-#{nth(str-split($direction,'-'),1)}-width: 1px;
+            border-#{nth(str-split($direction,'-'),1)}-style: solid;
+            border-#{nth(str-split($direction,'-'),2)}-width: 1px;
+            border-#{nth(str-split($direction,'-'),2)}-style: solid;
+            transform: scale(.5, .5);
+            transform-origin: 0 0;
+            pointer-events: none;
+            box-sizing: border-box;
+            @if $radius != 0 {
+                border-radius: #{$radius};
+            }
+        }
+    }
+
+    @include respond-to(dpr1) {
+        &::#{$ele} {
+            transform: scale(1, 1);
+            @if $direction != top and $direction != right and $direction != bottom and $direction != left{
+                width: 100%;
+                height: 100%;
+                @if $radius != 0 {
+                    border-radius: #{$radius/2};
+                }
+            }
+        }
+    }
+    @include respond-to(dpr3) {
+        &::#{$ele} {
+            @if $direction == top or $direction == bottom{
+                transform: scaleY(.33333333333333333);
+            }
+            @else if $direction == left or $direction == right{
+                transform: scaleX(.33333333333333333);
+            }
+            @else{
+                width: 300%;
+                height: 300%;
+                transform: scale(.33333333333333333,.33333333333333333);
+                @if $radius != 0 {
+                    border-radius: #{$radius*1.5};
+                }
+            }
+        }
+    }
+    @include respond-to(dpr4) {
+        &::#{$ele} {
+            @if $direction == top or $direction == bottom{
+                transform: scaleY(.25);
+            }
+            @else if $direction == left or $direction == right{
+                transform: scaleX(.25);
+            }
+            @else{
+                width: 400%;
+                height: 400%;
+                transform: scale(.25,.25);
+                @if $radius != 0 {
+                    border-radius: #{$radius*2};
+                }
+            }
+        }
+    }
+}
+
+
+
+$breakpoints: (
+  'dpr1': 'only screen and (device-pixel-ratio: 1)',
+  'dpr2': 'only screen and (device-pixel-ratio: 2)',
+  'dpr3': 'only screen and (min-device-pixel-ratio: 3) and (max-device-pixel-ratio: 3.5)',
+  'dpr4': 'only screen and (device-pixel-ratio: 4), only screen and (min-device-pixel-ratio: 3.6) and (max-device-pixel-ratio: 4)',
+) !default;
+@mixin respond-to($breakpoint) {
+  $query: map-get($breakpoints, $breakpoint);
+  @if not $query {
+    @error 'No value found for `#{$breakpoint}`. Please make sure it is defined in `$breakpoints` map.';
+  }
+  @media #{if(type-of($query) == 'string', unquote($query), inspect($query))} {
+    @content;
+  }
+}
+
+/**
+ * @desc 字符串分隔
+ */
+@function str-split($string, $delimiter: ' ') {
+  $result: ();
+  $length: str-length($string);
+  $running: true;
+  $remaining: $string;
+  @if str-length($delimiter)==0 {
+    @for $i from 1 through $length {
+      $result: append($result, str-slice($string, $i, $i));
+    }
+    @return $result;
+  }
+  @while $running {
+    $index: str-index($remaining, $delimiter);
+    @if $index {
+      $slice: str-slice($remaining, 1, $index - 1);
+      $result: append($result, $slice);
+      $remaining: str-slice($remaining, $index+ str-length($delimiter));
+    }
+    @else {
+      $running: false;
+    }
+  }
+  @return append($result, $remaining);
+}
+//for svg-url function
+@function str-replace($string, $search, $replace: '') {
+  $index: str-index($string, $search);
+  @if $index {
+    @return str-slice($string, 1, $index - 1) + $replace +
+    str-replace(str-slice($string, $index +
+    str-length($search)), $search, $replace);
+  }
+  @return $string;
+}
+//内联SVG函数
+@function svg-url($svg) {
+  $encoded: '';
+  $slice: 2000;
+  $index: 0;
+  $loops: ceil(str-length($svg)/$slice);
+  @for $i from 1 through $loops {
+    $chunk: str-slice($svg, $index, $index + $slice - 1);
+    $chunk: str-replace($chunk,'"','\'');
+    $chunk: str-replace($chunk,'<','%3C');
+    $chunk: str-replace($chunk,'>','%3E');
+    $chunk: str-replace($chunk,'&','%26');
+    $chunk: str-replace($chunk,'#','%23');
+    // $chunk: str-replace($chunk,' ','%20');//空格
+    $encoded: #{$encoded}#{$chunk};
+    $index: $index + $slice;
+  }
+  @return url('data:image/svg+xml;charset=utf8,#{$encoded}');
+}

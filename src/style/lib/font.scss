@@ -1,0 +1,26 @@
+@import './mixins.scss';
+
+$sd: 8;
+/*
+    1.5倍屏幕物理宽度大于375px小于540的手机，/2等于缩小0.75倍
+    2倍屏幕物理宽度大于375px小于540的手机，/2等于缩放1倍
+    3倍屏幕物理宽度大于360px小于480的手机，/2等于放大1.5倍
+    3.5倍屏幕物理宽度大于410px小于600的手机，/2等于放大1.75倍
+    4倍屏幕物理宽度大于540px的手机，/2等于放大2倍
+*/
+$ratio: 0.5;
+%G-font20 {font-size: 20px * $ratio; line-height: #{$sd * 2.75 * $ratio}px}
+%G-font22 {font-size: 22px * $ratio; line-height: #{$sd * 4 * $ratio}px}
+%G-font24 {font-size: 24px * $ratio; line-height: #{$sd * 4 * $ratio}px}
+%G-font28 {font-size: 28px * $ratio; line-height: #{$sd * 4.5 * $ratio}px}
+%G-font32 {font-size: 32px * $ratio; line-height: #{$sd * 5 * $ratio}px}
+%G-font36 {font-size: 16px; line-height: #{$sd * 6 * 0.44444444}px}
+%G-font40 {font-size: 18px; line-height: #{$sd * 6 * 0.44444444}px}
+%G-font48 {font-size: 21px; line-height: #{$sd * 6 * 0.44444444}px}
+@media
+only screen and (min-width: 359px) and (-webkit-min-device-pixel-ratio: 2)
+{
+    %G-font36 {font-size: 36px * $ratio; line-height: #{$sd * 6 * $ratio}px}
+    %G-font40 {font-size: 40px * $ratio; line-height: #{$sd * 6 * $ratio}px}
+    %G-font48 {font-size: 48px * $ratio; line-height: #{$sd * 6 * $ratio}px}
+}

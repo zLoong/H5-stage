@@ -1,0 +1,294 @@
+@import './mixins.scss';
+$bg-color: rgba(0,0,0,.4);
+
+%G-img-wrap {
+  @extend %G-font24;
+  @extend %G-bgcolor-D5;
+
+  display: inline-block;
+  position: relative;
+
+  &.is-error {
+    &::before {
+      @extend %G-h-80;
+      @extend %G-lh-80;
+      @extend %G-mg-t--40;
+      @extend %G-color-D4;
+
+      display: block;
+      position: absolute;
+      top: 45%;
+
+      width: 100%;
+
+      text-align: center;
+
+      font-family: 'tagIcon';
+      font-size: 350%;
+
+      content: '\003A';
+
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img {
+      visibility: hidden;
+    }
+  }
+
+  &.is-irregular {
+    &:not(.is-error) {
+      background-color: transparent;
+    }
+  }
+  @if $G-night {
+    @at-root .G-night {
+      %G-img-wrap {
+        position: relative;
+
+        &::after {
+          position: absolute;
+          top: 0;
+          left: 0;
+
+          background-color: $bg-color;
+
+          width: 100%;
+
+          height: 100%;
+
+          content: '';
+
+          pointer-events: none;
+        }
+
+        &.is-irregular {
+          &:after {
+            display: none;
+          }
+
+          img {
+            opacity: .4;
+          }
+        }
+      }
+    }
+  }
+}
+
+/*clearfix*/
+
+%G-clearfix {
+  &::after {
+    display: block;
+
+    clear: both;
+
+    visibility: hidden;
+
+    height: 0;
+
+    font-size: 0;
+
+    content: ' ';
+  }
+}
+
+/*hide overflow text*/
+%G-hide-overflow-text {
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+}
+
+%G-hide-2rows-overflow-text {
+  @include textOverflow($clamp: 2);
+
+  margin-right: -2px;
+}
+
+/*不定义颜色的1px边框, 定义颜色请使用minix*/
+
+%G-border-bottom {
+  @include border(D5, 0, bottom);
+}
+
+%G-border-top {
+  @include border(D5, 0, top);
+}
+
+%G-border-right {
+  @include border(D5, 0, right);
+}
+
+%G-border-left {
+  @include border(D5, 0, left);
+}
+
+%G-border-tb {
+  @include border(D5, 0, top-bottom);
+}
+
+%G-border-tl {
+  @include border(D5, 0, top-left);
+}
+
+%G-border-rb {
+  @include border(D5, 0, right-bottom);
+}
+
+%G-border {
+  @include border(D5, 0, all);
+}
+
+%list-last-child {
+  &:last-child::after {
+    display: none;
+  }
+}
+
+%webkitBox {
+  display: flex;
+
+  align-items: center;
+}
+
+%G-novel-li {
+  @extend %webkitBox;
+  @extend %list-last-child;
+  @extend %G-pd-a-32;
+  @include borderSvg($direction: bottom, $size: 1px , $borderColor: $D5, $Through: false);
+
+  position: relative;
+
+  .mod-book--items-info, .mod-items--info {
+    flex: 1;
+    overflow: hidden;
+  }
+
+  h1 {
+    @extend %G-font32;
+    @extend %G-color-A1;
+    @extend %webkitBox;
+    @extend %G-mg-b-16;
+
+    span {
+      @extend %G-hide-overflow-text;
+
+      display: inline-block;
+
+          -webkit-box-flex: 1;
+    }
+
+    .mod-taginline {
+      @extend %G-mg-l-8;
+
+      flex: none;
+
+      margin-right: 0;
+
+      &::after {
+        width: 199%;
+      }
+    }
+  }
+
+  p {
+    @extend %G-hide-2rows-overflow-text;
+    @extend %G-color-A3;
+    @extend %G-font24;
+    @extend %G-lh-40;
+    @extend %G-mg-t-16;
+
+    span {
+      @extend %G-mg-r-16;
+    }
+  }
+
+  .mod-book--items-info-basic {
+    @extend %G-font22;
+
+    -webkit-box-orient: horizontal;
+    -webkit-line-clamp: 1;
+
+    & > * {
+      @extend %G-lh-32;
+
+      display: block;
+
+      max-width: 60%;
+
+      overflow: hidden;
+
+      text-overflow: ellipsis;
+
+      white-space: nowrap;
+    }
+
+    & > span + span {
+      @extend %G-mg-l-16;
+
+      margin-right: 0;
+
+      padding: 0;
+
+      text-align: right;
+
+      -webkit-box-flex: 1;
+
+      span {
+        @extend %G-pd-l-16;
+        @extend %G-pd-r-16;
+        @extend %G-mg-l-8;
+        @extend %G-mg-r-0;
+        @extend %G-lh-30;
+        @include border($color: D5, $radius: 40px);
+
+        display: inline-block;
+
+        text-align: center;
+      }
+    }
+  }
+
+  .operation-right {
+    @extend %G-mg-l-16;
+    @extend %G-w-110;
+
+    display: block;
+
+    padding: 0;
+    flex:none;
+  }
+
+  &.active {
+    @extend %G-bgcolor-D3;
+  }
+}
+
+//base64图片
+%G-base64img-star {
+  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAb1BMVEUAAADAwMDAwMDCwsLAwMDAwMDBwcHExMTAwMDAwMDAwMDAwMDAwMDBwcHBwcHAwMDExMTBwcHCwsLDw8PAwMDAwMDAwMDAwMDAwMC/v7/BwcHBwcHCwsLAwMC/v7+/v7/CwsLIyMi/v7/Gxsa/v7/zPnwvAAAAJHRSTlMA4bQd+2gwI+bRvqaOh2A7KBgVEfXv29bMrJU/OKKceEsXDAnVr7eLAAABQElEQVRIx63V6W7CMBAE4M1hcl+QQg5u5v2fsY1qCAgPsat+v2dYyaw28l/GUdykqVt+D+zFhQ/4LvkVfqzcBpARdIDbiP630Nvma2i12MmgZZYDQmih3YgDHg42+SicC2Eky454clzOByGehMHH7Khy38MLz8/V+NZaV2XRJy2oNumLslrLRGXdFyx9dZmSOoaDuBaJPPu8F4mQBs1PAs8yH4gWbG3yW50nDZbXmt1SftfIi8tuIX95+7eTT/lkLUIaLG+w6Vi+24hRA6Kh54hgB6oEUZJCAaKgF5VgV9YD4ZnzV1BX8tWh9uyR3J4pxyxWKsYsF5N0vg6nm8jtNF+TVEzuP9kWG71cRXsfaNw9fRyHRh6aQR9O0/ZVmGSRvIgyTCpDQQHwV4aVnBZAGQoD0kqMqhSD6VXPQp1z+bNvlF6BqUidmZcAAAAASUVORK5CYII=') left top no-repeat;
+  background-size: auto 100%;
+  @if $G-night {
+    .G-night {
+      %G-base64img-star {
+        opacity: .4;
+      }
+    }
+  }
+}
+
+%G-base64img-star-inner {
+  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAeFBMVEUAAAD/qw3/qg7/rA//rw//rBH/rBT/qg3/qw3/qg7/qw7/qw3/qw3/qxH/rQ//qw3/rxf/rw//qw7/qg7/qw7/qw3/qw7/qw7/qg7/qg3/qw7/qg3/qg7/qw3/rBH/qg3/qw7/qg//qg7/rRD/rRD/qhX/qhz/qg1lGvCXAAAAJ3RSTlMA5eFoIh0Y+tG1jodgOzEmFRH179vWzLuyrKaflTgsw6d4S0E+DAmwXoY8AAABQElEQVRIx62VaW+DMAxADQlHCSlHW64Cvev//w83tHRpNbtLpr3P72Epsgz8F9erZ9C2fv6EOHkFK8SVj7/GT9YeQbcEndcAvxH9V9C7+jMaZsfgiIajm1/gN4VTsLfB3sWXiQ0S6TbAa0SUPAdJ9Na9iKwL8YWwy8TlR1XqXPVpjSx12qtcl7AghmaDjmyaQUARoAdBAUzB+wAydPVDCUAWvG+Iti7+NgKgC963xLvf/F0MwBe8bynTd35aApAF7xNUDec3FZDEXBCz54iEP1A5F+RMoLhAsSebhD/kIbt1tH9Dlhvz12GZuEfye6YMLYEQAVoyMmjtdTjdAe4ne01aMnh8slaVWS5VPwaSu2eO4xg/bddoDie1fRoXBgkvyAEXNBEIRFzNxA9sWQBBBCMeNJDoA47Uq56B5ZzBn/kAr4yM4wBavi8AAAAASUVORK5CYII=') left top no-repeat;
+  background-size: auto 100%;
+  @if $G-night {
+    .G-night {
+      %G-base64img-star {
+        opacity: .4;
+      }
+    }
+  }
+}

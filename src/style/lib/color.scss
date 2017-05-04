@@ -1,0 +1,258 @@
+@import './mixins.scss';
+// #使用例子
+// 白天 %G-color-A1,.G-color-A1{color: $A1;}//主要文字色
+// 夜间 .G-night{
+//             %G-color-A1,.G-color-A1{color: $A1;}//主要文字色
+//       }
+$G-night: true !default;
+
+@function darkenColor($color) {
+    $r: red($color);
+    $g: green($color);
+    $b: blue($color);
+    $r2: red(darken(rgba($r, 0, 0, 0.7), 30%));
+    $g2: green(darken(rgba(0, $g, 0, 0.7), 30%));
+    $b2: blue(darken(rgba(0, 0, $b, 0.7), 30%));
+    @return  mix(rgba(0,0,0, 1), rgba($r2, $g2, $b2, 1));
+}
+@function darkenColor2($color) {
+    $r: red($color);
+    $g: green($color);
+    $b: blue($color);
+    $r2: red(rgba(36, 0, 0, 0.7));
+    $g2: green(rgba(0, 36, 0, 0.7));
+    $b2: blue(rgba(0, 0, 36, 0.7));
+    @return mix(rgba($r2, $g2, $b2, 1),$color);
+}
+@function lightColor($color) {
+    $r: red($color);
+    $g: green($color);
+    $b: blue($color);
+    $r2: red( lighten(rgba($r, 0, 0, 0.7), 40%));
+    $g2: green( lighten(rgba(0, $g, 0, 0.7), 40%));
+    $b2: blue( lighten(rgba(0, 0, $b, 0.7), 40%));
+    @return mix(rgba(255,255,255, 0.4), rgba($r2, $g2, $b2, 0.4));
+}
+//A类基本文字色
+$A1: #242424;//主要文字色
+$A2: #666;   //tab未选中文字色&操作文字色
+$A3: #8f8f8f;//辅助文字色
+$A4: #aaa;   //较弱辅助文字色
+$A5: #fff;   //所有的白色字,用于品牌色等深色背景上
+
+//B类运营色
+$B1: #4c9afa;
+$B2: #f25218;
+$B6: #4F7CB8;//犹豫期，想淘汰，用B1替代
+$C7: #ff682d; //小红点
+//D类框架色
+$D1: #ebebeb;//灰卡底色
+$D2: #fafafa;//灰卡色
+$D3: rgba(0,0,0,0.1);//卡片点击态
+$D4: #fff;//白卡色
+$D5: #e5e5e5;//基础分隔线
+$D6: #ccc;//正文顶部栏分隔线色
+
+//F类 按钮相关颜色
+$F1:#efefef; //用于 灰色面型按钮色、评论回复内容背景色以及引用内容背景色
+$F2: #d5d5d5; //用于 灰色线性按钮描边色,评论回复内容在点击态时候颜色
+$F3: #666; //用于 分类tab描边及选中状态填充色
+
+//品牌色
+$E1: #2fb639;//微信热文
+$E2: #f53d33;//资讯
+$E2-B: #FF5A5A;
+$E3: #e87646; //小说
+$E4: #376be6;//视频
+$E5: #753621;//生活服务
+$E6: #dbab58;//书城出版线
+$E61: #db8b00;//书城出版线辅助色
+$E7: #FFD400;//趣发现
+$E12: #36B70A;//话题圈品牌色
+
+/******图标色start******/
+$I1: #4d4d4d;//主要操作图标颜色。
+$I2: #777;//列表操作图标颜色。
+$I3: #aaa;//辅助操作图标颜色。
+$I4: #bfbfbf;//非强化操作图标颜色。
+$I5: #fff;//深色背景上图标颜色。
+$I6: #ffaa0d;//主要用于小说全部评论页
+$Idisable: #c9c9c9;
+
+
+/******颜色start******/
+    //文字颜色
+    %G-color-A1{color: $A1;}//主要文字色
+    %G-color-A2{color: $A2;}   //tab未选中文字色&操作文字色
+    %G-color-A3{color: $A3;}//辅助文字色
+    %G-color-A4{color: $A4;}   //较弱辅助文字色
+    %G-color-A5{color: $A5;}   //所有的白色字
+    //操作文字颜色
+    %G-color-B1{color: $B1;}
+    %G-color-B2{color: $B2;}
+    %G-color-B6{color: $B6;}//A1置灰4色
+    //文字点击置灰反色
+    %G-color-D1{color: $D1;}
+    %G-color-D4{color: $D4;}
+    %G-color-D5{color: $D5;}
+// /******颜色end******/
+// /******背景色start******/
+    %G-bgcolor-B1{background-color: $B1;}
+    %G-bgcolor-B2{background-color: $B2;}
+    %G-bgcolor-D1{background-color: $D1;}   //全局背景色
+    %G-bgcolor-D2{background-color: $D2;}//卡片背景色
+    %G-bgcolor-D3{background-color: $D3;}//卡片点击态
+    %G-bgcolor-D4{background-color: $D4;}   //正文顶部背景色
+    %G-bgcolor-D5{background-color: $D5;}//基础分隔线
+    %G-bgcolor-D6{background-color: $D6;}   //正文顶部栏分隔线色
+    %G-bgcolor-F1{background-color: $F1;}//灰色面型按钮颜色
+    %G-bgcolor-F2{background-color: $F2;}//灰色线性按钮
+    %G-bgcolor-F3{background-color: $F3;}   //分类控件背景
+    %G-bgcolor-A3{background-color: $A3;} //视频直播列表分割线背景色
+    %G-bgcolor-A5{background-color: $A5;} //背景色白色
+/******背景色end******/
+/******边框色start******/
+    %G-bdcolor-D5{border-color: $D5;}
+    %G-bdcolor-A3{border-color: $A3;}
+    %G-bdcolor-A5{border-color: $A5;}
+    %G-bdcolor-A4{border-color: $A4;}
+    %G-bdcolor-B1{border-color: $B1;}
+    %G-bdcolor-B2{border-color: $B2;}
+    %G-bdcolor-D6{border-color: $D6;}
+    %G-bdcolor-F1{border-color: $F1;}
+    %G-bdcolor-F2{border-color: $F2;}
+    %G-bdcolor-F3{border-color: $F3;}
+    //for qufaxian
+    %G-bdcolor-D2{border-color: $D2;}//边框颜色同卡片背景色
+    %G-bdcolor-D4{border-color: $D4;}
+    %G-bdcolor-A1{border-color: $A1;}
+/******边框色end*****/
+/******品牌色start******/
+    //微信热文
+    %G-color-E1 {color: $E1;}
+    %G-bgcolor-E1 {background-color: $E1;}
+    %G-bdcolor-E1 {border-color: $E1;}
+    //资讯
+    %G-color-E2 {color: $E2;}
+    %G-bgcolor-E2 {background-color: $E2;}
+    %G-bdcolor-E2 {border-color: $E2;}
+    %G-color-E2-B {color: $E2-B;}
+    %G-bgcolor-E2-B {background-color: $E2-B;}
+    %G-bdcolor-E2-B {border-color: $E2-B;}
+    //小说
+    %G-color-E3 {color: $E3;}
+    %G-bgcolor-E3 {background-color: $E3;}
+    %G-bdcolor-E3 {border-color: $E3;}
+    //视频
+    %G-color-E4 {color: $E4;}
+    %G-bgcolor-E4{background-color: $E4;}
+    %G-bdcolor-E4 {border-color: $E4;}
+    //生活服务
+    %G-color-E5 {color: $E5;}
+    %G-bgcolor-E5{background-color: $E5;}
+    %G-bdcolor-E5 {border-color: $E5;}
+    //书城出版线
+    %G-color-E6  {color: $E6;}
+    %G-bgcolor-E6{background-color: $E6;}
+    %G-bdcolor-E6 {border-color: $E6;}
+    %G-color-E61  {color: $E61;}
+    //趣发现portal
+    %G-color-E7{color: $E7;}
+    %G-bgcolor-E7{background-color: $E7;}
+    %G-bdcolor-E7{border-color: $E7;}
+/******品牌色end******/
+//话题圈
+    %G-bgcolor-E12{background-color: $E12;}
+/******图标色start******/
+    %G-color-I1 {color: $I1;}
+    %G-color-I2{color: $I2;}
+    %G-color-I3{color: $I3;}
+    %G-bdcolor-I3{border-color: $I3;}
+    %G-bgcolor-I3{background-color: $I3;}
+    %G-color-I4{color: $I4;}
+    %G-color-I5 {color: $I5;}
+    %G-color-I6{background-color: $I6;}
+    %G-color-Idisable{color: $Idisable;}
+/******图标色end******/
+/******标签（运营）色start******/
+    %G-color-C7 {color: $C7;} //小红点
+    %G-bgcolor-C7{background-color: $C7;} //小红点
+    %G-bdcolor-C7{border-color: $C7;} //小红点
+/******标签（运营）色end******/
+/*夜间*/
+@if $G-night {
+.G-night{
+    %G-color-A1             {color:             lightColor($A1);}
+    %G-color-A2             {color:             lightColor($A2);}
+    %G-color-A3             {color:             lightColor($A3);}
+    %G-color-A5             {color:             lightColor($A5);}
+    %G-color-A4             {color:             lightColor($A4);}
+    %G-color-B1             {color:             darkenColor2($B1);}
+    %G-color-B2             {color:             darkenColor2($B2);}
+    %G-color-B6             {color:             darkenColor2($B6);}
+    %G-color-D1             {color:             lightColor($D1);}
+    %G-color-D4             {color:             darkenColor2($D4);}
+    %G-color-D5             {color:             lightColor($D5);}
+    %G-bgcolor-A5           {color:             darkenColor2($A5);}
+    %G-bgcolor-B1           {background-color:  darkenColor2($B1);}
+    %G-bgcolor-B2           {background-color:  darkenColor2($B2);}
+    %G-bgcolor-D1           {background-color:  darkenColor($D1);}
+    %G-bgcolor-D2           {background-color:  darkenColor($D2);}
+    %G-bgcolor-D3           {background-color:  darkenColor($D3);}
+    %G-bgcolor-D4           {background-color:  darkenColor($D4);}
+    %G-bgcolor-D5           {background-color:  darkenColor($D5);}
+    %G-bgcolor-D6           {background-color:  darkenColor($D6);}
+    %G-bgcolor-F1           {background-color:  darkenColor($F1);}
+    %G-bgcolor-F2           {background-color:  darkenColor($F2);}
+    %G-bgcolor-F3          {background-color:  darkenColor($F3);}
+    %G-bgcolor-A3           {background-color:  darkenColor($A3);}
+    %G-bdcolor-D5           {border-color:      lightColor($D5);}
+    %G-bdcolor-A3           {border-color:      darkenColor($A3);}
+    %G-bdcolor-A4           {border-color:      darkenColor($A4);}
+    %G-bdcolor-B1           {border-color:      darkenColor2($B1);}
+    %G-bdcolor-B2           {border-color:      darkenColor2($B2);}
+    %G-bdcolor-D6           {border-color:      darkenColor($D6);}
+    %G-bdcolor-D7           {border-color:      darkenColor($A2);}
+    %G-bdcolor-F2           {border-color:      darkenColor($F2);}
+    %G-bdcolor-F3          {border-color:      darkenColor($F3);}
+    %G-bdcolor-D2           {border-color:      darkenColor($D2);}
+    %G-bdcolor-D4           {border-color:      darkenColor($D4);}
+    %G-bdcolor-A1           {border-color:      darkenColor($A1);}
+    %G-color-E1             {color:             darkenColor2($E1);}
+    %G-bgcolor-E1           {background-color:  darkenColor2($E1);}
+    %G-bdcolor-E1           {border-color:      darkenColor2($E1);}
+    %G-color-E2             {color:             darkenColor2($E2);}
+    %G-bgcolor-E2           {background-color:  darkenColor2($E2);}
+    %G-bdcolor-E2           {border-color:      darkenColor2($E2);}
+    %G-color-E2-B             {color:             darkenColor2($E2-B);}
+    %G-bgcolor-E2-B           {background-color:  darkenColor2($E2-B);}
+    %G-bdcolor-E2-B           {border-color:      darkenColor2($E2-B);}
+    %G-color-E3             {color:             darkenColor2($E3);}
+    %G-bgcolor-E3           {background-color:  darkenColor2($E3);}
+    %G-bdcolor-E3           {border-color:      darkenColor2($E3);}
+    %G-color-E4             {color:             darkenColor2($E4);}
+    %G-bgcolor-E4           {background-color:  darkenColor2($E4);}
+    %G-bdcolor-E4           {border-color:      darkenColor2($E4);}
+    %G-color-E5             {color:             darkenColor2($E5);}
+    %G-bgcolor-E5           {background-color:  darkenColor2($E5);}
+    %G-bdcolor-E5           {border-color:      darkenColor2($E5);}
+    %G-color-E6             {color:             darkenColor2($E6);}
+    %G-bgcolor-E6           {background-color:  darkenColor2($E6);}
+    %G-bdcolor-E6           {border-color:      darkenColor2($E6);}
+    %G-color-E7             {color:             darkenColor2($E7);}
+    %G-bgcolor-E7           {background-color:  darkenColor2($E7);}
+    %G-bdcolor-E7           {border-color:      darkenColor2($E7);}
+    %G-color-I1             {color:             darkenColor($I1);}
+    %G-color-I2             {color:             darkenColor($I2);}
+    %G-color-I3             {color:             darkenColor($I3);}
+    %G-bdcolor-I3           {border-color:      darkenColor($I3);}
+    %G-bgcolor-I3           {background-color:  darkenColor($I3);}
+    %G-color-I4             {color:             darkenColor($I4);}
+    %G-color-I5             {color:             darkenColor($I5);}
+    %G-color-Idisable       {color:             darkenColor($Idisable);}
+    %G-color-C7             {color:             darkenColor2($C7);}
+    %G-bgcolor-C7           {background-color:  darkenColor2($C7);}
+    %G-bdcolor-C7           {border-color:      darkenColor2($C7);}
+}
+}
+//}

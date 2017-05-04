@@ -1,0 +1,72 @@
+@import './mixins.scss';
+
+//边距以及高度适配
+/*
+    #公共的padding/margin/width/height/line-height数值
+    #
+        l代表left,
+        r代表right,
+        t代表top,
+        b代表bottom,
+        a代表all,
+        w代表width,
+        h代表height
+        lh代表line-height
+    #
+    #480以上的数值请自理
+*/
+$ratio: 0.88888888/2;
+@for $i from -400 through 900 {
+    %G-pd-l-#{$i}   {padding-left:    #{$i*$ratio}px;}
+    %G-pd-r-#{$i}   {padding-right:   #{$i*$ratio}px;}
+    %G-pd-t-#{$i}   {padding-top:     #{$i*$ratio}px;}
+    %G-pd-b-#{$i}   {padding-bottom:  #{$i*$ratio}px;}
+    %G-pd-a-#{$i}   {padding:         #{$i*$ratio}px;}
+    %G-mg-l-#{$i}   {margin-left:     #{$i*$ratio}px;}
+    %G-mg-r-#{$i}   {margin-right:    #{$i*$ratio}px;}
+    %G-mg-t-#{$i}   {margin-top:      #{$i*$ratio}px;}
+    %G-mg-b-#{$i}   {margin-bottom:   #{$i*$ratio}px;}
+    %G-mg-a-#{$i}   {margin:          #{$i*$ratio}px;}
+    %G-w-#{$i}      {width:           #{$i*$ratio}px;}
+    %G-h-#{$i}      {height:          #{$i*$ratio}px;}
+    %G-lh-#{$i}     {line-height:     #{$i*$ratio}px;}
+    %G-top-#{$i}    {top:             #{$i*$ratio}px;}
+    %G-bottom-#{$i} {bottom:          #{$i*$ratio}px;}
+    %G-left-#{$i}   {left:            #{$i*$ratio}px;}
+    %G-right-#{$i}  {right:           #{$i*$ratio}px;}
+    %G-h-min-#{$i}  {min-height:       #{$i*$ratio}px;}
+    %G-h-max-#{$i}  {max-height:       #{$i*$ratio}px;}
+    %G-w-min-#{$i}  {min-width:       #{$i*$ratio}px;}
+    %G-w-max-#{$i}  {max-width:       #{$i*$ratio}px;}
+    $i: $i + 2;
+}
+@media
+only screen and (min-width: 359px) and (-webkit-min-device-pixel-ratio: 2)
+{
+    $ratio: 1/2;
+    @for $i from -400 through 900 {
+        %G-pd-l-#{$i}   {padding-left:    #{$i*$ratio}px;}
+        %G-pd-r-#{$i}   {padding-right:   #{$i*$ratio}px;}
+        %G-pd-t-#{$i}   {padding-top:     #{$i*$ratio}px;}
+        %G-pd-b-#{$i}   {padding-bottom:  #{$i*$ratio}px;}
+        %G-pd-a-#{$i}   {padding:         #{$i*$ratio}px;}
+        %G-mg-l-#{$i}   {margin-left:     #{$i*$ratio}px;}
+        %G-mg-r-#{$i}   {margin-right:    #{$i*$ratio}px;}
+        %G-mg-t-#{$i}   {margin-top:      #{$i*$ratio}px;}
+        %G-mg-b-#{$i}   {margin-bottom:   #{$i*$ratio}px;}
+        %G-mg-a-#{$i}   {margin:          #{$i*$ratio}px;}
+        %G-w-#{$i}      {width:           #{$i*$ratio}px;}
+        %G-h-#{$i}      {height:          #{$i*$ratio}px;}
+        %G-lh-#{$i}     {line-height:     #{$i*$ratio}px;}
+        %G-top-#{$i}    {top:             #{$i*$ratio}px;}
+        %G-bottom-#{$i} {bottom:          #{$i*$ratio}px;}
+        %G-left-#{$i}   {left:            #{$i*$ratio}px;}
+        %G-right-#{$i}  {right:           #{$i*$ratio}px;}
+        %G-h-min-#{$i}  {min-height:       #{$i*$ratio}px;}
+        %G-h-max-#{$i}  {max-height:       #{$i*$ratio}px;}
+        %G-w-min-#{$i}  {min-width:       #{$i*$ratio}px;}
+        %G-w-max-#{$i}  {max-width:       #{$i*$ratio}px;}
+        $i: $i + 2;
+    }
+}
+
