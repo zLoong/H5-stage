@@ -1,0 +1,35 @@
+{
+  "name": "mothers-day",
+  "version": "1.0.0",
+  "description": "mother's day h5 page",
+  "main": "index.js",
+  "scripts": {
+    "s": "webpack-dev-server --hot",
+    "sass": "gulp sass",
+    "cssmin": "gulp cssmin"
+  },
+  "author": "zloong",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^6.7.7",
+    "autoprefixer-loader": "^3.2.0",
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "css-loader": "^0.28.0",
+    "file-loader": "^0.11.1",
+    "gulp": "^3.9.1",
+    "gulp-clean-css": "^3.0.4",
+    "gulp-postcss": "^6.4.0",
+    "gulp-sass": "^3.1.0",
+    "node-sass": "^4.5.2",
+    "postcss-gradientfixer": "0.0.6",
+    "sass-loader": "^6.0.3",
+    "style-loader": "^0.16.1",
+    "url-loader": "^0.5.8",
+    "webpack": "^2.4.1",
+    "webpack-dev-server": "^2.4.5"
+  }
+}
